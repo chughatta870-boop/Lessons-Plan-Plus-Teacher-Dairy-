@@ -1,0 +1,194 @@
+:root{
+  --primary:#0d5c46;
+  --primary-dark:#083f31;
+  --accent:#e8a33d;
+  --bg:#f4f7f6;
+  --card:#ffffff;
+  --text:#1f2a26;
+  --muted:#647169;
+  --border:#dde5e1;
+  --danger:#c0392b;
+  --excellent:#1e8e3e;
+  --good:#1a73e8;
+  --average:#e8a33d;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:40px;
+}
+.topbar{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:#fff;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.brand-title{display:block;font-weight:700;font-size:1.05rem}
+.brand-sub{display:block;font-size:.75rem;opacity:.85}
+#roleSelect{
+  padding:6px 10px;
+  border-radius:8px;
+  border:none;
+  font-size:.85rem;
+  background:#fff;
+  color:var(--primary-dark);
+  font-weight:600;
+}
+.tabs{
+  display:flex;
+  overflow-x:auto;
+  gap:6px;
+  padding:10px 10px 0;
+  background:var(--bg);
+  position:sticky;
+  top:58px;
+  z-index:19;
+}
+.tab-btn{
+  flex:0 0 auto;
+  padding:9px 14px;
+  border:none;
+  border-radius:20px 20px 0 0;
+  background:#e3ece8;
+  color:var(--primary-dark);
+  font-weight:600;
+  font-size:.82rem;
+  white-space:nowrap;
+}
+.tab-btn.active{background:var(--card);box-shadow:0 -2px 6px rgba(0,0,0,.05)}
+#app{padding:12px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  margin-bottom:14px;
+}
+.card h2{margin-top:0;font-size:1.05rem;color:var(--primary-dark)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:10px}
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:4px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:.95rem;
+  font-family:inherit;
+  background:#fff;
+  color:var(--text);
+}
+textarea{resize:vertical}
+.btn-primary,.btn-secondary,.btn-danger{
+  border:none;
+  border-radius:10px;
+  padding:12px 16px;
+  font-weight:700;
+  font-size:.9rem;
+  cursor:pointer;
+}
+.btn-primary{background:var(--primary);color:#fff;width:100%}
+.btn-secondary{background:#e3ece8;color:var(--primary-dark)}
+.btn-danger{background:#fdecea;color:var(--danger)}
+.list-toolbar{margin-bottom:10px}
+.card-list{display:flex;flex-direction:column;gap:10px}
+.item-card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:14px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  border-left:5px solid var(--primary);
+}
+.item-card h3{margin:0 0 4px;font-size:.98rem;color:var(--primary-dark)}
+.item-meta{font-size:.78rem;color:var(--muted);margin-bottom:8px;line-height:1.5}
+.item-actions{display:flex;flex-wrap:wrap;gap:6px}
+.item-actions button{
+  border:none;border-radius:8px;padding:7px 10px;font-size:.75rem;font-weight:600;
+  background:#e3ece8;color:var(--primary-dark);cursor:pointer;
+}
+.badge{
+  display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:700;color:#fff;
+}
+.badge.excellent{background:var(--excellent)}
+.badge.good{background:var(--good)}
+.badge.average{background:var(--average)}
+.badge.pending{background:#9aa5a0}
+.section-title{font-size:1.05rem;color:var(--primary-dark)}
+
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);
+  display:flex;align-items:flex-end;justify-content:center;z-index:50;
+}
+.modal-inner{
+  background:#fff;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;
+  border-radius:18px 18px 0 0;padding:18px;position:relative;
+}
+.modal-close{
+  position:absolute;top:10px;right:12px;border:none;background:#eee;
+  border-radius:50%;width:32px;height:32px;font-size:1rem;cursor:pointer;
+}
+.modal-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.remark-options{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.remark-btn{
+  flex:1;min-width:100px;padding:12px;border:none;border-radius:10px;color:#fff;font-weight:700;cursor:pointer;
+}
+.remark-btn.excellent{background:var(--excellent)}
+.remark-btn.good{background:var(--good)}
+.remark-btn.average{background:var(--average)}
+.remark-btn.selected{outline:3px solid var(--primary-dark)}
+
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#222;color:#fff;padding:10px 18px;border-radius:20px;font-size:.85rem;z-index:100;
+}
+
+/* ===== Printable lesson plan / diary sheet ===== */
+.printable{
+  background:#fff;padding:14px;border-radius:10px;position:relative;overflow:hidden;
+}
+.print-header{
+  display:flex;justify-content:space-between;border-bottom:2px solid var(--primary);
+  padding-bottom:8px;margin-bottom:10px;
+}
+.print-header h2{margin:0;color:var(--primary-dark);font-size:1.1rem}
+.print-meta-table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:.85rem}
+.print-meta-table td{border:1px solid var(--border);padding:6px 8px}
+.print-meta-table td.label{background:#f0f5f3;font-weight:700;width:32%}
+.plan-section{margin-bottom:12px}
+.plan-section h4{
+  margin:0 0 6px;color:var(--primary-dark);font-size:.9rem;
+  border-left:4px solid var(--accent);padding-left:8px;
+}
+.plan-section ul{margin:0;padding-left:20px}
+.plan-section li{margin-bottom:4px;font-size:.88rem}
+.plan-section p{margin:0;font-size:.88rem;line-height:1.5}
+.remark-box{
+  margin-top:14px;padding:10px;border-radius:10px;border:1px dashed var(--border);font-size:.85rem;
+}
+.watermark{
+  position:absolute;bottom:6px;right:10px;font-size:.68rem;color:#9aa5a0;opacity:.8;font-weight:600;
+}
+
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr}
+}
+
+@media print{
+  header.topbar,.tabs,.no-print,.modal-close{display:none !important}
+  body{background:#fff}
+  .modal{position:static;background:none;display:block}
+  .modal-inner{max-width:100%;box-shadow:none;padding:0}
+  .printable{box-shadow:none}
+}

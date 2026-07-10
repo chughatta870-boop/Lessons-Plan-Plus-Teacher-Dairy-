@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d5c46">
+<meta name="description" content="Lesson Plan & Teacher Diary Generator - GHS 124/NB">
+<title>Lesson Plan & Teacher Diary - GHS 124/NB</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-title">Lesson Plan &amp; Teacher Diary</span>
+    <span class="brand-sub">GHS 124/NB</span>
+  </div>
+  <div class="role-switch">
+    <label class="switch-label">
+      <select id="roleSelect">
+        <option value="teacher">Teacher Mode</option>
+        <option value="head">Head Teacher Mode</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab-btn active" data-tab="newPlan">+ New Lesson Plan</button>
+  <button class="tab-btn" data-tab="plansList">Lesson Plans</button>
+  <button class="tab-btn" data-tab="diary">Teacher Diary</button>
+  <button class="tab-btn head-only" data-tab="review" hidden>Head Teacher Review</button>
+</nav>
+
+<main id="app">
+
+  <!-- ===== NEW LESSON PLAN ===== -->
+  <section id="newPlan" class="tab-panel active">
+    <form id="planForm" class="card">
+      <h2>Lesson Plan Details</h2>
+
+      <div class="grid2">
+        <label>Teacher Name
+          <input type="text" id="teacherName" required placeholder="e.g. Mohammed Ijaz">
+        </label>
+        <label>Subject
+          <input type="text" id="subject" required list="subjectList" placeholder="e.g. Mathematics">
+          <datalist id="subjectList">
+            <option value="Mathematics"></option>
+            <option value="Science"></option>
+            <option value="English"></option>
+            <option value="Urdu"></option>
+            <option value="Islamiat"></option>
+            <option value="Social Studies"></option>
+            <option value="Computer Science"></option>
+            <option value="Pakistan Studies"></option>
+          </datalist>
+        </label>
+      </div>
+
+      <div class="grid2">
+        <label>Class
+          <select id="className" required>
+            <option value="">Select Class</option>
+            <option>Kachi (Prep)</option>
+            <option>Class 1</option><option>Class 2</option><option>Class 3</option>
+            <option>Class 4</option><option>Class 5</option><option>Class 6</option>
+            <option>Class 7</option><option>Class 8</option><option>Class 9</option>
+            <option>Class 10</option>
+          </select>
+        </label>
+        <label>Date
+          <input type="date" id="planDate" required>
+        </label>
+      </div>
+
+      <div class="grid2">
+        <label>Month
+          <select id="planMonth" required>
+            <option value="">Select Month</option>
+            <option>January</option><option>February</option><option>March</option>
+            <option>April</option><option>May</option><option>June</option>
+            <option>July</option><option>August</option><option>September</option>
+            <option>October</option><option>November</option><option>December</option>
+          </select>
+        </label>
+        <label>Year
+          <input type="number" id="planYear" required min="2020" max="2100" placeholder="2026">
+        </label>
+      </div>
+
+      <label>Teaching Topic
+        <input type="text" id="topic" required placeholder="e.g. Fractions - Addition of Fractions">
+      </label>
+
+      <label>AV Aids (comma separated)
+        <input type="text" id="avAids" placeholder="e.g. Chart, Flash Cards, Whiteboard, Real Objects">
+      </label>
+
+      <label>Teacher's Notes / Focus Points (optional)
+        <textarea id="teacherNotes" rows="2" placeholder="Any specific focus, weak students, extra points..."></textarea>
+      </label>
+
+      <button type="submit" class="btn-primary">⚡ Auto-Generate Complete Lesson Plan</button>
+    </form>
+
+    <div id="generatedPlanWrap"></div>
+  </section>
+
+  <!-- ===== LESSON PLANS LIST ===== -->
+  <section id="plansList" class="tab-panel">
+    <div class="list-toolbar">
+      <input type="text" id="planSearch" placeholder="Search by topic, subject, class, date...">
+    </div>
+    <div id="plansListContainer" class="card-list"></div>
+  </section>
+
+  <!-- ===== TEACHER DIARY ===== -->
+  <section id="diary" class="tab-panel">
+    <div class="list-toolbar">
+      <input type="text" id="diarySearch" placeholder="Search diary by date, subject, class...">
+    </div>
+    <div id="diaryContainer" class="card-list"></div>
+  </section>
+
+  <!-- ===== HEAD TEACHER REVIEW ===== -->
+  <section id="review" class="tab-panel">
+    <h2 class="section-title">Head Teacher Review</h2>
+    <div class="list-toolbar">
+      <input type="text" id="reviewSearch" placeholder="Search by teacher, subject, class, date...">
+    </div>
+    <div id="reviewContainer" class="card-list"></div>
+  </section>
+
+</main>
+
+<!-- ===== VIEW / PRINT MODAL ===== -->
+<div id="viewModal" class="modal" hidden>
+  <div class="modal-inner">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalBody" class="printable"></div>
+    <div class="modal-actions no-print">
+      <button id="btnPrint" class="btn-secondary">🖨️ Download / Print PDF</button>
+      <button id="btnShare" class="btn-secondary">🔗 Share</button>
+      <button id="btnEdit" class="btn-secondary">✏️ Edit</button>
+      <button id="btnDelete" class="btn-danger">🗑️ Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDIT MODAL ===== -->
+<div id="editModal" class="modal" hidden>
+  <div class="modal-inner">
+    <button class="modal-close" id="editModalClose">✕</button>
+    <h2>Edit</h2>
+    <div id="editBody"></div>
+    <div class="modal-actions no-print">
+      <button id="btnSaveEdit" class="btn-primary">💾 Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REMARK MODAL (Head Teacher) ===== -->
+<div id="remarkModal" class="modal" hidden>
+  <div class="modal-inner">
+    <button class="modal-close" id="remarkModalClose">✕</button>
+    <h2>Add Remarks</h2>
+    <div class="remark-options" id="remarkOptions">
+      <button class="remark-btn excellent" data-remark="Excellent">Excellent</button>
+      <button class="remark-btn good" data-remark="Good">Good</button>
+      <button class="remark-btn average" data-remark="Average">Average</button>
+    </div>
+    <label>Head Teacher Comments (optional)
+      <textarea id="htComment" rows="3" placeholder="Write comments..."></textarea>
+    </label>
+    <div class="modal-actions no-print">
+      <button id="btnSaveRemark" class="btn-primary">✅ Submit Remark</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="script.js"></script>
+</body>
+</html>
